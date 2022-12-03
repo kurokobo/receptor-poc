@@ -1,0 +1,32 @@
+services:
+  node01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node01
+    hostname: node01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node01.yml:/etc/receptor/receptor.conf"
+
+  node02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node02
+    hostname: node02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node02.yml:/etc/receptor/receptor.conf"
+
+  node03:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node03
+    hostname: node03.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node03.yml:/etc/receptor/receptor.conf"
+
+  node04:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node04
+    hostname: node04.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node04.yml:/etc/receptor/receptor.conf"

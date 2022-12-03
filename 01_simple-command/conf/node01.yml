@@ -1,0 +1,18 @@
+---
+- node:
+    id: controller01
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: node02.example.internal:7323
+
+- control-service:
+    service: control
+    filename: /tmp/receptor.sock
+
+- work-command:
+    worktype: gather-hostname
+    command: cat
+    params: /etc/hostname

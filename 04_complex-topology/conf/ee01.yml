@@ -1,0 +1,20 @@
+---
+- node:
+    id: east-executor01
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: er01.example.internal:7323
+
+- tcp-peer:
+    address: er02.example.internal:7323
+
+- control-service:
+    service: control
+
+- work-command:
+    worktype: gather-hostname
+    command: cat
+    params: /etc/hostname

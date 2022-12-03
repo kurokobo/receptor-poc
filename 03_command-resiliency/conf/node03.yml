@@ -1,0 +1,10 @@
+---
+- node:
+    id: relayer02
+
+- log-level:
+    level: debug
+
+- tcp-listener:
+    port: 7323
+    cost: 2.0

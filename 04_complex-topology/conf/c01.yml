@@ -1,0 +1,16 @@
+---
+- node:
+    id: controller01
+
+- log-level:
+    level: debug
+
+- tcp-listener:
+    port: 7323
+
+- tcp-listener:
+    port: 7324
+
+- control-service:
+    service: control
+    filename: /tmp/receptor.sock

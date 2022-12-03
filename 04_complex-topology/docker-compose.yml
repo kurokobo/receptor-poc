@@ -1,0 +1,80 @@
+services:
+  c01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c01
+    hostname: c01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/c01.yml:/etc/receptor/receptor.conf"
+
+  wc01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: wc01
+    hostname: wc01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/wc01.yml:/etc/receptor/receptor.conf"
+
+  wr01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: wr01
+    hostname: wr01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/wr01.yml:/etc/receptor/receptor.conf"
+
+  wr02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: wr02
+    hostname: wr02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/wr02.yml:/etc/receptor/receptor.conf"
+
+  wr03:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: wr03
+    hostname: wr03.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/wr03.yml:/etc/receptor/receptor.conf"
+
+  we01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: we01
+    hostname: we01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/we01.yml:/etc/receptor/receptor.conf"
+
+  we02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: we02
+    hostname: we02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/we02.yml:/etc/receptor/receptor.conf"
+
+  er01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: er01
+    hostname: er01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/er01.yml:/etc/receptor/receptor.conf"
+
+  er02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: er02
+    hostname: er02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/er02.yml:/etc/receptor/receptor.conf"
+
+  ee01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: ee01
+    hostname: ee01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/ee01.yml:/etc/receptor/receptor.conf"

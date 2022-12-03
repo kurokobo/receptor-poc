@@ -1,0 +1,20 @@
+---
+- node:
+    id: west-executor02
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: wr01.example.internal:7323
+
+- tcp-peer:
+    address: wr02.example.internal:7323
+
+- control-service:
+    service: control
+
+- work-command:
+    worktype: gather-hostname
+    command: cat
+    params: /etc/hostname

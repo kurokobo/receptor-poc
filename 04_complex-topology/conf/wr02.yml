@@ -1,0 +1,12 @@
+---
+- node:
+    id: west-relayer02
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: c01.example.internal:7323
+
+- tcp-listener:
+    port: 7323

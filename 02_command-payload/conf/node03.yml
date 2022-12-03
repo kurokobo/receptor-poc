@@ -1,0 +1,23 @@
+---
+- node:
+    id: executor01
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: node02.example.internal:7323
+
+- control-service:
+    service: control
+
+- work-command:
+    worktype: cat-files
+    command: grep
+    params: "-n -H ''"
+    allowruntimeparams: true
+
+- work-command:
+    worktype: echo-reply
+    command: bash
+    params: "-c 'while read -r line; do echo Reply from $(cat /etc/hostname): ${line^^}; done'"
