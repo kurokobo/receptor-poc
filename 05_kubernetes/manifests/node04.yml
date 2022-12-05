@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: receptor
+  name: node04
+spec:
+  hostname: node04
+  containers:
+    - name: node04
+      image: quay.io/ansible/receptor:latest
+      command:
+        - receptor
+        - -c
+        - /etc/receptor/receptor.conf
+      volumeMounts:
+        - name: receptor-conf
+          mountPath: /etc/receptor/receptor.conf
+          subPath: receptor.conf
+  volumes:
+    - name: receptor-conf
+      configMap:
+        name: receptor-conf
+        items:
+          - key: node04.yml
+            path: receptor.conf
+  restartPolicy: Always
+  serviceAccountName: receptor

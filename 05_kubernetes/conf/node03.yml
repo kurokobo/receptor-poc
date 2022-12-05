@@ -1,0 +1,48 @@
+---
+- node:
+    id: executor01
+
+- log-level:
+    level: debug
+
+- tcp-peer:
+    address: node02.example.internal:7323
+
+- control-service:
+    service: control
+
+- work-kubernetes:
+    worktype: echo-sleep
+    authmethod: kubeconfig
+    kubeconfig: /tmp/.kube/config
+    namespace: receptor
+    image: quay.io/centos/centos:stream8
+    command: bash
+    params: "-c 'for i in $(seq 1 12); do echo ${i}: $(date +%T); sleep 5; done'"
+
+- work-kubernetes:
+    worktype: cat-files
+    authmethod: kubeconfig
+    kubeconfig: /tmp/.kube/config
+    namespace: receptor
+    image: quay.io/centos/centos:stream8
+    command: grep
+    params: "-n -H ''"
+    allowruntimeparams: true
+    allowruntimecommand: true
+
+- work-kubernetes:
+    worktype: echo-reply
+    authmethod: kubeconfig
+    kubeconfig: /tmp/.kube/config
+    namespace: receptor
+    image: quay.io/centos/centos:stream8
+    command: bash
+    params: "-c 'while read -r line; do echo Reply from $(cat /etc/hostname): ${line^^}; done'"
+
+- work-kubernetes:
+    worktype: custom-predefined-pod
+    authmethod: kubeconfig
+    kubeconfig: /tmp/.kube/config
+    pod: /tmp/pod.yml
+    allowruntimecommand: true

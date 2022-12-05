@@ -1,0 +1,30 @@
+services:
+  node01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node01
+    hostname: node01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node01.yml:/etc/receptor/receptor.conf"
+      - "./.kube/config:/tmp/.kube/config"
+      - "./manifests/pod.yml:/tmp/pod.yml"
+
+  node02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node02
+    hostname: node02.example.internal
+    ports:
+      - 7323:7323
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node02.yml:/etc/receptor/receptor.conf"
+
+  node03:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: node03
+    hostname: node03.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./conf/node03.yml:/etc/receptor/receptor.conf"
+      - "./.kube/config:/tmp/.kube/config"
+      - "./manifests/pod.yml:/tmp/pod.yml"

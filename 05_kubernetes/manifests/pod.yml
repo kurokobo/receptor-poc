@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: receptor
+  labels:
+    app: hello-receptor
+spec:
+  initContainers:
+    - name: init-worker
+      image: quay.io/centos/centos:stream8
+      command:
+        - sleep
+      args:
+        - "5"
+  containers:
+    - name: worker
+      image: ubuntu:22.04
+      command:
+        - grep
+      args:
+        - -n
+        - -H
+        - ""
+        - /etc/hostname
+        - /etc/os-release
+      resources:
+        requests:
+          cpu: 10m
