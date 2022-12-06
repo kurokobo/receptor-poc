@@ -71,12 +71,12 @@ docker compose exec -it node01 bash
 
 ```bash
 [root@node01 /]# receptorctl version
-receptorctl  1.3.0.dev2
-receptor     1.3.0.dev2
+receptorctl  1.3.0
+receptor     1.3.0
 
 [root@node01 /]# receptorctl status
 Node ID: controller01
-Version: 1.3.0.dev2
+Version: 1.3.0
 System CPU Count: 4
 System Memory MiB: 7762
 
@@ -188,7 +188,9 @@ docker compose exec -it node01 bash
 /etc/os-release:13:REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux 9"
 /etc/os-release:14:REDHAT_SUPPORT_PRODUCT_VERSION="CentOS Stream"
 (PPLqDD0a, released)
+```
 
+```bash
 [root@node01 /]# echo "Hello Receptor!" > /tmp/input.txt
 [root@node01 /]# receptorctl work submit \
   --node executor01 \
@@ -198,6 +200,15 @@ docker compose exec -it node01 bash
   echo-reply
 Reply from node03.example.internal: HELLO RECEPTOR!
 (vfhNJ5UQ, released)
+
+[root@node01 /]# echo "Hello Receptor!" | receptorctl work submit \
+  --node executor01 \
+  --rm \
+  --follow \
+  --payload - \
+  echo-reply
+Reply from node03.example.internal: HELLO RECEPTOR!
+(NX9JQHC9, released)
 
 [root@node01 /]# receptorctl work submit \
   --node executor01 \
@@ -641,6 +652,30 @@ $ docker compose stop node04
 ```
 
 ```bash
+$ docker compose start node04
+[+] Running 1/1
+ ⠿ Container node04  Started  0.3s
+```
+
+```bash
+[root@node01 /]# receptorctl work list
+{
+    "5lIdpCah": {
+        "Detail": "Running: PID 182",
+        "ExtraData": {
+            ...
+            "RemoteUnitID": "62ESTRMU",
+            ...
+        },
+        "State": 1,
+        "StateName": "Running",
+        "StdoutSize": 96,
+        ...
+    }
+}
+```
+
+```bash
 [root@node04 /]# cat /tmp/receptor/executor01/62ESTRMU/status
 {
   "State": 1,
@@ -662,13 +697,13 @@ Assets: [📂 04_complex-topology](04_complex-topology)
 ```bash
 cd 04_complex-topology
 docker compose up -d
-docker compose exec -it node01 bash
+docker compose exec -it wc01 bash
 ```
 
 ```bash
 [root@wc01 /]# receptorctl status
 Node ID: west-controller01
-Version: 1.3.0.dev2
+Version: 1.3.0
 System CPU Count: 4
 System Memory MiB: 7762
  
@@ -749,11 +784,11 @@ Unit ID: jBLBH6pV
 ```
 
 ```bash
-$  kubectl -n receptor get pod
+$ kubectl -n receptor get pod
 NAME               READY   STATUS    RESTARTS   AGE
 echo-sleep-mqnjl   1/1     Running   0          13s
 
-$  kubectl -n receptor get pod echo-sleep-mqnjl -o yaml
+$ kubectl -n receptor get pod echo-sleep-mqnjl -o yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -846,6 +881,12 @@ total 8
 12: 19:46:13
 ```
 
+```bash
+[root@node01 /]# receptorctl work release --all
+Released:
+(jBLBH6pV, released)
+```
+
 ### Case 02: Parameters and payloads
 
 ```bash
@@ -915,15 +956,6 @@ $ kubectl -n receptor get pod -o yaml
 Reply from echo-reply-64l6z: HELLO RECEPTOR!
 (mW6CH1D9, released)
 
-[root@node01 /]# receptorctl work submit \
-  --node executor01 \
-  --rm \
-  --follow \
-  --payload-literal "Hello Receptor!" \
-  echo-reply
-Reply from echo-reply-4jzxn: HELLO RECEPTOR!
-(MUdlZNqN, released)
-
 [root@node01 /]# echo "Hello Receptor!" | receptorctl work submit \
   --node executor01 \
   --rm \
@@ -932,6 +964,15 @@ Reply from echo-reply-4jzxn: HELLO RECEPTOR!
   echo-reply
 Reply from echo-reply-jf4bd: HELLO RECEPTOR!
 (vmjsnjSd, released)
+
+[root@node01 /]# receptorctl work submit \
+  --node executor01 \
+  --rm \
+  --follow \
+  --payload-literal "Hello Receptor!" \
+  echo-reply
+Reply from echo-reply-4jzxn: HELLO RECEPTOR!
+(MUdlZNqN, released)
 ```
 
 ```bash
@@ -1149,7 +1190,7 @@ spec:
     - receptor
     - -c
     - /etc/receptor/receptor.conf
-    image: quay.io/ansible/receptor:v1.3.0.dev2
+    image: quay.io/ansible/receptor:v1.3.0
     imagePullPolicy: IfNotPresent
     name: node04
     ...

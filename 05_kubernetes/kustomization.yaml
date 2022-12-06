@@ -13,7 +13,7 @@ configMapGenerator:
 
 images:
   - name: quay.io/ansible/receptor
-    newTag: v1.3.0.dev2
+    newTag: v1.3.0
 
 resources:
   - ./manifests/namespace.yml
