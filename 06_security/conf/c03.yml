@@ -1,0 +1,20 @@
+---
+- node:
+    id: controller03
+
+- log-level:
+    level: debug
+
+- tls-client:
+    name: example-tls-client
+    rootcas: /etc/receptor/certs/ca.crt
+    cert: /etc/receptor/certs/c03.example.internal.crt
+    key: /etc/receptor/certs/c03.example.internal.key
+
+- tcp-peer:
+    address: r01.example.internal:7323
+    tls: example-tls-client
+
+- control-service:
+    service: control
+    filename: /tmp/receptor.sock

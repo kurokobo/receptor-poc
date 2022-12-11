@@ -1,0 +1,33 @@
+---
+- node:
+    id: executor01
+
+- log-level:
+    level: debug
+
+- tls-client:
+    name: example-tls-client
+    rootcas: /etc/receptor/certs/ca.crt
+    cert: /etc/receptor/certs/e01.example.internal.crt
+    key: /etc/receptor/certs/e01.example.internal.key
+
+- tcp-peer:
+    address: r01.example.internal:7323
+    tls: example-tls-client
+
+- control-service:
+    service: control
+
+- work-command:
+    worktype: echo-reply
+    command: bash
+    params: "-c 'while read -r line; do echo Reply from $(cat /etc/hostname): ${line^^}; done'"
+
+- work-verification:
+    publickey: /etc/receptor/certs/signworkpublic.pem
+
+- work-command:
+    worktype: echo-verified-reply
+    command: bash
+    params: "-c 'while read -r line; do echo Reply from $(cat /etc/hostname) for verified work: ${line^^}; done'"
+    verifysignature: true

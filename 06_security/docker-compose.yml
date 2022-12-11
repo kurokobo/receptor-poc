@@ -1,0 +1,92 @@
+services:
+  c01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c01
+    hostname: c01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/c01.example.internal.crt:/etc/receptor/certs/c01.example.internal.crt"
+      - "./certs/c01.example.internal.key:/etc/receptor/certs/c01.example.internal.key"
+      - "./certs/signworkprivate.pem:/etc/receptor/certs/signworkprivate.pem"
+      - "./conf/c01.yml:/etc/receptor/receptor.conf"
+
+  c02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c02
+    hostname: c02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/c02.example.internal.crt:/etc/receptor/certs/c02.example.internal.crt"
+      - "./certs/c02.example.internal.key:/etc/receptor/certs/c02.example.internal.key"
+      - "./certs/signworkprivate.c02.pem:/etc/receptor/certs/signworkprivate.c02.pem"
+      - "./conf/c02.yml:/etc/receptor/receptor.conf"
+
+  c03:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c03
+    hostname: c03.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/c03.example.internal.crt:/etc/receptor/certs/c03.example.internal.crt"
+      - "./certs/c03.example.internal.key:/etc/receptor/certs/c03.example.internal.key"
+      - "./conf/c03.yml:/etc/receptor/receptor.conf"
+
+  c04:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c04
+    hostname: c04.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/c04.example.internal.crt:/etc/receptor/certs/c04.example.internal.crt"
+      - "./certs/c04.example.internal.key:/etc/receptor/certs/c04.example.internal.key"
+      - "./conf/c04.yml:/etc/receptor/receptor.conf"
+
+  r01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: r01
+    hostname: r01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/r01.example.internal.crt:/etc/receptor/certs/r01.example.internal.crt"
+      - "./certs/r01.example.internal.key:/etc/receptor/certs/r01.example.internal.key"
+      - "./conf/r01.yml:/etc/receptor/receptor.conf"
+
+  e01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: e01
+    hostname: e01.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/e01.example.internal.crt:/etc/receptor/certs/e01.example.internal.crt"
+      - "./certs/e01.example.internal.key:/etc/receptor/certs/e01.example.internal.key"
+      - "./certs/signworkpublic.pem:/etc/receptor/certs/signworkpublic.pem"
+      - "./conf/e01.yml:/etc/receptor/receptor.conf"
+
+  e02:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: e02
+    hostname: e02.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/e02.example.internal.crt:/etc/receptor/certs/e02.example.internal.crt"
+      - "./certs/e02.example.internal.key:/etc/receptor/certs/e02.example.internal.key"
+      - "./conf/e02.yml:/etc/receptor/receptor.conf"
+
+  e03:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: e03
+    hostname: e03.example.internal
+    command: "receptor -c /etc/receptor/receptor.conf"
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/e03.example.internal.crt:/etc/receptor/certs/e03.example.internal.crt"
+      - "./certs/e03.example.internal.key:/etc/receptor/certs/e03.example.internal.key"
+      - "./certs/signworkpublic.pem:/etc/receptor/certs/signworkpublic.pem"
+      - "./conf/e03.yml:/etc/receptor/receptor.conf"

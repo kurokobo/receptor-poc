@@ -1,0 +1,32 @@
+---
+- node:
+    id: relayer01
+    firewallrules:
+      - action: accept
+        fromnode: /controller0[12]/
+        tonode: /executor0[1-3]/
+      - action: accept
+        fromnode: /executor0[1-3]/
+        tonode: /controller0[12]/
+      - action: reject
+
+- log-level:
+    level: debug
+
+- tls-server:
+    name: example-tls-server
+    cert: /etc/receptor/certs/r01.example.internal.crt
+    key: /etc/receptor/certs/r01.example.internal.key
+    requireclientcert: true
+    clientcas: /etc/receptor/certs/ca.crt
+
+- tcp-listener:
+    port: 7323
+    tls: example-tls-server
+    allowedpeers:
+      - controller01
+      - controller02
+      - controller03
+      - executor01
+      - executor02
+      - executor03
