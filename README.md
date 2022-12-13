@@ -109,6 +109,27 @@ executor01   gather-hostname
 ```
 
 ```bash
+[root@node01 /]# receptorctl ping relayer01
+Reply from relayer01 in 317.614µs
+Reply from relayer01 in 352.845µs
+Reply from relayer01 in 315.205µs
+Reply from relayer01 in 254.051µs
+
+[root@node01 /]# receptorctl ping executor01
+Reply from executor01 in 451.259µs
+Reply from executor01 in 539.444µs
+Reply from executor01 in 587.212µs
+Reply from executor01 in 588.532µs
+```
+
+```bash
+[root@node01 /]# receptorctl traceroute executor01
+0: controller01 in 73.859µs
+1: relayer01 in 429.427µs
+2: executor01 in 694.976µs
+```
+
+```bash
 [root@node01 /]# receptorctl work submit \
   --node executor01 \
   --no-payload \
@@ -234,6 +255,25 @@ Assets: [📂 03_command-resiliency](03_command-resiliency)
 ```bash
 cd 03_command-resiliency
 docker compose up -d
+```
+
+```bash
+[root@node01 /]# receptorctl status
+...
+Connection   Cost
+relayer01    1
+relayer02    2
+
+...
+Route        Via
+executor01   relayer01
+relayer01    relayer01
+relayer02    relayer02
+
+[root@node01 /]# receptorctl traceroute executor01
+0: controller01 in 70.855µs
+1: relayer01 in 344.99µs
+2: executor01 in 330.43µs
 ```
 
 ### Case 01
@@ -379,6 +419,11 @@ executor01   relayer02
 relayer02    relayer02
 ...
 
+[root@node01 /]# receptorctl traceroute executor01
+0: controller01 in 93.198µs
+1: relayer02 in 308.564µs
+2: executor01 in 336.695µs
+
 [root@node01 /]# receptorctl work list --unit_id uocGYk24
 {
     "uocGYk24": {
@@ -420,6 +465,11 @@ executor01   relayer01
 relayer01    relayer01
 relayer02    relayer02
 ...
+
+[root@node01 /]# receptorctl traceroute executor01
+0: controller01 in 58.766µs
+1: relayer01 in 305.701µs
+2: executor01 in 349.324µs
 ```
 
 ```bash
@@ -726,8 +776,8 @@ west-controller01 west-relayer03: 1
 west-executor01   west-relayer03: 1 
 west-executor02   west-relayer01: 1 west-relayer02: 1 
 west-relayer01    controller01: 1 west-executor02: 1 west-relayer03: 1 
-west-relayer02    controller01: 1 west-executor02: 1 west-relayer03: 1 
-west-relayer03    west-controller01: 1 west-executor01: 1 west-relayer01: 1 west-relayer02: 1 
+west-relayer02    controller01: 1 west-executor02: 1 
+west-relayer03    west-controller01: 1 west-executor01: 1 west-relayer01: 1 
  
 Route             Via
 controller01      west-relayer03
@@ -751,6 +801,22 @@ Node              Work Types
 east-executor01   gather-hostname
 west-executor01   gather-hostname
 west-executor02   gather-hostname
+```
+
+```bash
+[root@wc01 /]# receptorctl ping east-executor01
+Reply from east-executor01 in 1.414839ms
+Reply from east-executor01 in 1.977049ms
+Reply from east-executor01 in 1.366458ms
+Reply from east-executor01 in 1.9261ms
+
+[root@wc01 /]# receptorctl traceroute east-executor01
+0: west-controller01 in 96.69µs
+1: west-relayer03 in 317.221µs
+2: west-relayer01 in 742.736µs
+3: controller01 in 839.477µs
+4: east-relayer02 in 1.204882ms
+5: east-executor01 in 806.648µs
 ```
 
 ```bash
@@ -1590,6 +1656,27 @@ Released:
 ```
 
 ```bash
+[root@c01 /]# receptorctl ping executor01
+Reply from executor01 in 455.761µs
+Reply from executor01 in 609.2µs
+Reply from executor01 in 414.827µs
+Reply from executor01 in 751.812µs
+```
+
+```bash
+[root@c02 /]# receptorctl ping executor01
+Reply from executor01 in 406.311µs
+Reply from executor01 in 640.188µs
+Reply from executor01 in 590.659µs
+Reply from executor01 in 1.32654ms
+```
+
+```bash
+[root@c03 /]# receptorctl ping executor01
+^C
+```
+
+```bash
 [root@c01 /]# echo "Hello Receptor!" | receptorctl work submit \
   --node executor01 \
   --rm \
@@ -1626,6 +1713,34 @@ Reply from e01.example.internal: HELLO RECEPTOR!
   --payload - \
   echo-reply
 ^C
+```
+
+```bash
+[root@c01 /]# receptorctl ping executor01
+Reply from executor01 in 455.761µs
+Reply from executor01 in 609.2µs
+Reply from executor01 in 414.827µs
+Reply from executor01 in 751.812µs
+
+[root@c01 /]# receptorctl ping executor02
+Reply from executor02 in 485.397µs
+Reply from executor02 in 655.979µs
+Reply from executor02 in 617.134µs
+Reply from executor02 in 1.550298ms
+```
+
+```bash
+[root@c02 /]# receptorctl ping executor01
+Reply from executor01 in 406.311µs
+Reply from executor01 in 640.188µs
+Reply from executor01 in 590.659µs
+Reply from executor01 in 1.32654ms
+
+[root@c02 /]# receptorctl ping executor02
+ERROR: blocked by firewall
+ERROR: blocked by firewall
+ERROR: blocked by firewall
+ERROR: blocked by firewall
 ```
 
 ```bash

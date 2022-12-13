@@ -1,9 +1,6 @@
 ---
 - node:
     id: executor03
-    firewallrules:
-      - action: reject
-        fromnode: controller02
 
 - log-level:
     level: debug

@@ -8,8 +8,5 @@
 - tcp-peer:
     address: wr01.example.internal:7323
 
-- tcp-peer:
-    address: wr02.example.internal:7323
-
 - tcp-listener:
     port: 7323
