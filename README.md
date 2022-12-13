@@ -1673,7 +1673,20 @@ Reply from executor01 in 1.32654ms
 
 ```bash
 [root@c03 /]# receptorctl ping executor01
-^C
+ERROR: blocked by firewall
+ERROR: blocked by firewall
+ERROR: blocked by firewall
+ERROR: blocked by firewall
+```
+
+```bash
+$ docker compose logs c03
+...
+c03  | WARNING 2022/12/09 06:32:11 Received unreachable message from relayer01
+c03  | WARNING 2022/12/09 06:32:12 Received unreachable message from relayer01
+c03  | WARNING 2022/12/09 06:32:13 Received unreachable message from relayer01
+c03  | WARNING 2022/12/09 06:32:14 Received unreachable message from relayer01
+...
 ```
 
 ```bash
@@ -1747,6 +1760,9 @@ ERROR: blocked by firewall
 $ docker compose logs c02
 ...
 c02  | WARNING 2022/12/09 06:38:56 Received unreachable message from executor02
+c02  | WARNING 2022/12/09 06:38:57 Received unreachable message from executor02
+c02  | WARNING 2022/12/09 06:38:58 Received unreachable message from executor02
+c02  | WARNING 2022/12/09 06:38:59 Received unreachable message from executor02
 ...
 ```
 

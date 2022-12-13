@@ -8,6 +8,8 @@
       - action: accept
         fromnode: /executor0[1-3]/
         tonode: /controller0[12]/
+      - action: accept
+        toservice: unreach
       - action: reject
 
 - log-level:
