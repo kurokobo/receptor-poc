@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - ansible.builtin.debug:
+        var: dump
+      vars:
+        dump:
+          hostname: "{{ ansible_facts.hostname }}"
+          user_dir: "{{ ansible_facts.user_dir }}"
+          user_id: "{{ ansible_facts.user_id }}"
+          virtualization_type: "{{ ansible_facts.virtualization_type }}"
+    - ansible.builtin.pause:
+        seconds: "{{ wait_seconds | default(30) }}"

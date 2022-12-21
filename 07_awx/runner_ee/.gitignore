@@ -1,0 +1,6 @@
+*
+!.gitignore
+!inventory
+!inventory/*
+!project
+!project/*
