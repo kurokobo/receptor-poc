@@ -6,6 +6,7 @@ Detailed instructions for this repository (in Japanese):
 - [Receptor (1)： Receptor はじめの一歩 | kurokobo.com](https://blog.kurokobo.com/archives/4605)
 - [Receptor (2)： Kubernetes 上でのワークの実行 | kurokobo.com](https://blog.kurokobo.com/archives/4755)
 - [Receptor (3)： 暗号化と認証、ファイアウォール、電子署名 | kurokobo.com](https://blog.kurokobo.com/archives/4791)
+- [Receptor (4)： AWX と Automation Mesh での Receptor の使われ方 | kurokobo.com](https://blog.kurokobo.com/archives/4847)
 
 <!-- omit in toc -->
 ## Table of Contents
