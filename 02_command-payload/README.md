@@ -33,6 +33,19 @@ docker compose exec -it node01 bash
 ```
 
 ```bash
+[root@node01 /]# receptorctl work submit \
+  --node executor01 \
+  --rm \
+  --follow \
+  --no-payload \
+  cat-files -- /etc/hostname /etc/os-release
+/etc/hostname:1:node03.example.internal
+/etc/os-release:1:NAME="CentOS Stream"
+...
+(WzjhPLJ0, released)
+```
+
+```bash
 [root@node01 /]# echo "Hello Receptor!" > /tmp/input.txt
 [root@node01 /]# receptorctl work submit \
   --node executor01 \
