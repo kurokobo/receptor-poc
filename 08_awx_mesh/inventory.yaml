@@ -1,0 +1,45 @@
+---
+all:
+  hosts:
+    hop01.ansible.internal:
+      ansible_host: hop01.ansible.internal
+      receptor_peers:
+        - protocol: tcp
+          address: exec01.ansible.internal
+          port: 27199
+        - protocol: tcp
+          address: exec02.ansible.internal
+          port: 27199
+    hop02.ansible.internal:
+      ansible_host: hop02.ansible.internal
+      receptor_peers:
+        - protocol: tcp
+          address: exec01.ansible.internal
+          port: 27199
+        - protocol: tcp
+          address: exec02.ansible.internal
+          port: 27199
+    #hop03.ansible.internal:
+    #  ansible_host: hop03.ansible.internal
+    #  receptor_peers:
+    #    - protocol: tcp
+    #      address: hop04.ansible.internal
+    #      port: 27199
+    hop04.ansible.internal:
+      ansible_host: hop04.ansible.internal
+      receptor_peers:
+        - protocol: tcp
+          address: exec03.ansible.internal
+          port: 27199
+  vars:
+    ansible_user: root
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa
+    receptor_user: awx
+    receptor_group: awx
+    receptor_tls: true
+    custom_tls_certfile: "{{ (ansible_host, 'receptor.crt') | path_join }}"
+    custom_tls_keyfile: "{{ (ansible_host, 'receptor.key') | path_join }}"
+    custom_ca_certfile: "{{ (ansible_host, 'receptor-ca.crt') | path_join }}"
+    receptor_protocol: tcp
+    receptor_listener: true
+    receptor_port: 27199

@@ -7,6 +7,7 @@ Detailed instructions for this repository (in Japanese):
 - [Receptor (2)： Kubernetes 上でのワークの実行 | kurokobo.com](https://blog.kurokobo.com/archives/4755)
 - [Receptor (3)： 暗号化と認証、ファイアウォール、電子署名 | kurokobo.com](https://blog.kurokobo.com/archives/4791)
 - [Receptor (4)： AWX と Automation Mesh での Receptor の使われ方 | kurokobo.com](https://blog.kurokobo.com/archives/4847)
+- [Receptor (5)： AWX で Hop Node 込みの Automation Mesh を強引に構成する | kurokobo.com](https://blog.kurokobo.com/archives/4896)
 
 <!-- omit in toc -->
 ## Contents
@@ -20,6 +21,7 @@ Detailed instructions for this repository (in Japanese):
 | 5 | [📂 05_kubernetes](05_kubernetes) | Kubernetes work |
 | 6 | [📂 06_encryption-firewall](06_encryption-firewall) | Encryption, firewall, work signing |
 | 7 | [📂 07_awx](07_awx) | Receptor in AWX and Automation Mesh |
+| 8 | [📂 08_awx_mesh](08_awx_mesh) | Enable Automation Mesh with Hop Nodes in AWX (**Experimental**) |
 
 ## References
 

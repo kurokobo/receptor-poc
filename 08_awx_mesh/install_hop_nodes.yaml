@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - ansible.builtin.user:
+        name: "{{ receptor_user }}"
+        shell: /bin/bash
+    - ansible.posix.firewalld:
+        port: "{{ receptor_port }}/tcp"
+        permanent: yes
+        state: enabled
+    - community.general.copr:
+        name: ansible-awx/receptor
+        state: enabled
+    - ansible.builtin.import_role:
+        name: ansible.receptor.setup
+    - ansible.builtin.systemd:
+        name: receptor
+        state: restarted
