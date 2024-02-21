@@ -1,0 +1,48 @@
+---
+- node:
+    id: relayer01
+
+- log-level:
+    level: debug
+
+- control-service:
+    service: control
+    filename: /tmp/receptor.sock
+
+- tls-server:
+    name: tls-server
+    cert: /etc/receptor/certs/r01.example.internal.crt
+    key: /etc/receptor/certs/r01.example.internal.key
+    requireclientcert: true
+    clientcas: /etc/receptor/certs/ca.crt
+
+- tls-client:
+    name: tls-client
+    rootcas: /etc/receptor/certs/ca.crt
+    cert: /etc/receptor/certs/r01.example.internal.crt
+    key: /etc/receptor/certs/r01.example.internal.key
+
+- tcp-listener:
+    port: 7323
+    tls: tls-server
+
+- work-verification:
+    publickey: /etc/receptor/certs/signworkpublic.pem
+
+- work-command:
+    worktype: receptor-gather-config
+    command: cat
+    params: /etc/receptor/receptor.conf
+    verifysignature: true
+
+- work-command:
+    worktype: receptor-patch-config
+    command: bash
+    params: "-c 'while read -r; do echo \"${REPLY}\" >> /etc/receptor/receptor.conf; done'"
+    verifysignature: true
+
+- work-command:
+    worktype: receptor-reload-config
+    command: receptorctl
+    params: reload
+    verifysignature: true

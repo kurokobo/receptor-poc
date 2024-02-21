@@ -1,0 +1,56 @@
+---
+services:
+  c01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: c01
+    hostname: c01.example.internal
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cp /etc/receptor/receptor.template.conf /etc/receptor/receptor.conf
+        exec receptor -c /etc/receptor/receptor.conf
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/c01.example.internal.crt:/etc/receptor/certs/c01.example.internal.crt"
+      - "./certs/c01.example.internal.key:/etc/receptor/certs/c01.example.internal.key"
+      - "./certs/signworkprivate.pem:/etc/receptor/certs/signworkprivate.pem"
+      - "./certs/signworkpublic.pem:/etc/receptor/certs/signworkpublic.pem"
+      - "./conf/c01.yml:/etc/receptor/receptor.template.conf"
+      - "./conf/c01-patch-r01.yml:/tmp/c01-patch-r01.yml"
+
+  r01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: r01
+    hostname: r01.example.internal
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cp /etc/receptor/receptor.template.conf /etc/receptor/receptor.conf
+        exec receptor -c /etc/receptor/receptor.conf
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/r01.example.internal.crt:/etc/receptor/certs/r01.example.internal.crt"
+      - "./certs/r01.example.internal.key:/etc/receptor/certs/r01.example.internal.key"
+      - "./certs/signworkprivate.pem:/etc/receptor/certs/signworkprivate.pem"
+      - "./certs/signworkpublic.pem:/etc/receptor/certs/signworkpublic.pem"
+      - "./conf/r01.yml:/etc/receptor/receptor.template.conf"
+
+  e01:
+    image: ${RECEPTOR_IMAGE:?err}
+    container_name: e01
+    hostname: e01.example.internal
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cp /etc/receptor/receptor.template.conf /etc/receptor/receptor.conf
+        exec receptor -c /etc/receptor/receptor.conf
+    volumes:
+      - "./certs/ca.crt:/etc/receptor/certs/ca.crt"
+      - "./certs/e01.example.internal.crt:/etc/receptor/certs/e01.example.internal.crt"
+      - "./certs/e01.example.internal.key:/etc/receptor/certs/e01.example.internal.key"
+      - "./certs/signworkprivate.pem:/etc/receptor/certs/signworkprivate.pem"
+      - "./certs/signworkpublic.pem:/etc/receptor/certs/signworkpublic.pem"
+      - "./conf/e01.yml:/etc/receptor/receptor.template.conf"
