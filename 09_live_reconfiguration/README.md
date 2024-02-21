@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Demo 06: Encryption, firewall, work signing
+# Demo 09: Live Reconfiguration
 
 <!-- omit in toc -->
 ## Table of Contents
