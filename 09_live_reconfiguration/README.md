@@ -5,8 +5,9 @@
 ## Table of Contents
 
 - [Scenario](#scenario)
+- [Restriction](#restriction)
 - [Preparation: Generate Keys and Certs](#preparation-generate-keys-and-certs)
-- [Add peers on-the-fly](#add-peers-on-the-fly)
+- [Demo: Add peers on-the-fly](#demo-add-peers-on-the-fly)
 
 ## Scenario
 
@@ -26,6 +27,20 @@ The `relayer01` has pre-defined works to update its configuration on-the-fly:
 On `controller01`, there is a patch file `/tmp/c01-patch-r01.yml` that contains the configuration for `relayer01` to connect `executor01`.
 
 In this scenario, we will invoke `receptorctl` on `controller01` to demonstrate how to add `executor01` to the mesh on-the-fly.
+
+## Restriction
+
+The reload function of Receptor is limited to updates for following configurations only.
+
+- `tcp-peer`
+- `tcp-listener`
+- `ws-peer`
+- `ws-listener`
+- `udp-peer`
+- `udp-listener`
+- `local-only`
+
+For more information, refer to the docs: <https://ansible.readthedocs.io/projects/receptor/en/latest/user_guide/interacting_with_nodes.html#reload>
 
 ## Preparation: Generate Keys and Certs
 
@@ -73,9 +88,9 @@ total 40
 -rw-rw-r--. 1 kuro kuro  451 Feb 21 22:51 signworkpublic.pem
 ```
 
-## Add peers on-the-fly
+## Demo: Add peers on-the-fly
 
-Get bash shell on controller01.
+Start containers and get bash shell on controller01.
 
 ```bash
 $ docker compose up -d
@@ -236,9 +251,9 @@ Ensure configuration file is updated on relayer01.
     params: reload
     verifysignature: true
 
-- tcp-peer:
-    address: e01.example.internal:7323
-    tls: tls-client
+- tcp-peer:   ✅
+    address: e01.example.internal:7323   ✅
+    tls: tls-client   ✅
 (Har53eAQ, released)
 ```
 
@@ -264,22 +279,22 @@ relayer01    1
 
 Known Node   Known Connections
 controller01 relayer01: 1 
-executor01   relayer01: 1 
-relayer01    controller01: 1 executor01: 1 
+executor01   relayer01: 1    ✅
+relayer01    controller01: 1 executor01: 1    ✅
 
 Route        Via
-executor01   relayer01
+executor01   relayer01   ✅
 relayer01    relayer01
 
 Node         Service   Type       Last Seen             Tags
 controller01 control   Stream     2024-02-21 13:54:42   {'type': 'Control Service'}
 relayer01    control   Stream     2024-02-21 13:54:42   {'type': 'Control Service'}
-executor01   control   Stream     2024-02-21 13:54:42   {'type': 'Control Service'}
+executor01   control   Stream     2024-02-21 13:54:42   {'type': 'Control Service'}   ✅
 
 Node         Secure Work Types
 controller01 receptor-gather-config
 relayer01    receptor-gather-config, receptor-patch-config, receptor-reload-config
-executor01   please-introduce-yourself
+executor01   please-introduce-yourself   ✅
 ```
 
 Ensure the work on executor01 is executable.
