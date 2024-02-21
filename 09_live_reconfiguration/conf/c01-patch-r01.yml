@@ -1,0 +1,4 @@
+
+- tcp-peer:
+    address: e01.example.internal:7323
+    tls: tls-client

@@ -1,0 +1,40 @@
+---
+- node:
+    id: executor01
+
+- log-level:
+    level: debug
+
+- control-service:
+    service: control
+    filename: /tmp/receptor.sock
+
+- tls-server:
+    name: tls-server
+    cert: /etc/receptor/certs/e01.example.internal.crt
+    key: /etc/receptor/certs/e01.example.internal.key
+    requireclientcert: true
+    clientcas: /etc/receptor/certs/ca.crt
+
+- tls-client:
+    name: tls-client
+    rootcas: /etc/receptor/certs/ca.crt
+    cert: /etc/receptor/certs/e01.example.internal.crt
+    key: /etc/receptor/certs/e01.example.internal.key
+
+- work-signing:
+    privatekey: /etc/receptor/certs/signworkprivate.pem
+    tokenexpiration: 5m
+
+- work-verification:
+    publickey: /etc/receptor/certs/signworkpublic.pem
+
+- tcp-listener:
+    port: 7323
+    tls: tls-server
+
+- work-command:
+    worktype: please-introduce-yourself
+    command: echo
+    params: "Hi, I'm executor01, I'm just now joined the mesh!"
+    verifysignature: true
